@@ -1,6 +1,9 @@
 package com.hmall.dao;
 
+import com.hmall.pojo.Category;
 import com.hmall.pojo.OrderItem;
+
+import java.util.List;
 
 public interface OrderItemMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,5 @@ public interface OrderItemMapper {
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
+
 }
