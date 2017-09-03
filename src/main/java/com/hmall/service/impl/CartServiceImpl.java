@@ -1,5 +1,6 @@
 package com.hmall.service.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.hmall.common.Const;
 import com.hmall.common.ResponseCode;
@@ -56,6 +57,29 @@ public class CartServiceImpl implements ICartService {
         CartVo cartVo=this.getCartVoLimit(userId);
         return ServiceResponse.createBySuccess(cartVo);
     }
+    public ServiceResponse<CartVo> update(Integer userId,Integer productId,Integer count){
+        if(productId==null || count==null){
+            return ServiceResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        Cart cart=cartMapper.selectCartByUserIdProduct(userId,productId);
+        if(cart!=null){
+            cart.setQuantity(count);
+        }
+        cartMapper.updateByPrimaryKeySelective(cart);
+        CartVo cartVo=this.getCartVoLimit(userId);
+        return ServiceResponse.createBySuccess(cartVo);
+    }
+
+    public ServiceResponse<CartVo> deleteProdut(Integer userId,String productIds){
+        List<String> productList= Splitter.on(",").splitToList(productIds);
+        if(CollectionUtils.isEmpty(productList)){
+            return ServiceResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        int resultCount=cartMapper.deleteByUserIdProductIds(userId,productList);
+        CartVo cartVo=this.getCartVoLimit(userId);
+        return ServiceResponse.createBySuccess(cartVo);
+     }
+
     private CartVo getCartVoLimit(Integer userId){
         CartVo cartVo=new CartVo();
         List<Cart> cartList=cartMapper.selectCartByUserId(userId);

@@ -10,4 +10,6 @@ import com.hmall.vo.CartVo;
  */
 public interface ICartService {
     ServiceResponse<CartVo> add(Integer userId, Integer productId, Integer count);
+    ServiceResponse<CartVo> update(Integer userId,Integer productId,Integer count);
+    ServiceResponse<CartVo> deleteProdut(Integer userId,String productIds);
 }
