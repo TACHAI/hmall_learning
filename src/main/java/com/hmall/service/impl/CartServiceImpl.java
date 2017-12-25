@@ -54,8 +54,7 @@ public class CartServiceImpl implements ICartService {
             cart.setQuantity(count);
             cartMapper.updateByPrimaryKeySelective(cart);
         }
-        CartVo cartVo=this.getCartVoLimit(userId);
-        return ServiceResponse.createBySuccess(cartVo);
+        return this.list(userId);
     }
     public ServiceResponse<CartVo> update(Integer userId,Integer productId,Integer count){
         if(productId==null || count==null){
@@ -66,8 +65,7 @@ public class CartServiceImpl implements ICartService {
             cart.setQuantity(count);
         }
         cartMapper.updateByPrimaryKeySelective(cart);
-        CartVo cartVo=this.getCartVoLimit(userId);
-        return ServiceResponse.createBySuccess(cartVo);
+        return this.list(userId);
     }
 
     public ServiceResponse<CartVo> deleteProdut(Integer userId,String productIds){
@@ -76,10 +74,24 @@ public class CartServiceImpl implements ICartService {
             return ServiceResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         int resultCount=cartMapper.deleteByUserIdProductIds(userId,productList);
+        return this.list(userId);
+     }
+    public  ServiceResponse<CartVo> list(Integer userId){
         CartVo cartVo=this.getCartVoLimit(userId);
         return ServiceResponse.createBySuccess(cartVo);
-     }
+    }
 
+    public ServiceResponse<CartVo> selectOrUnSelect(Integer userId,Integer productId,Integer checked){
+        cartMapper.checkOrUnchekedProduct(userId,productId,checked);
+        return this.list(userId);
+    }
+
+    public ServiceResponse<Integer> getCartProductCount(Integer userId){
+        if(userId ==null){
+            return ServiceResponse.createBySuccess(0);
+        }
+        return ServiceResponse.createBySuccess(cartMapper.selectCartProductCount(userId));
+    }
     private CartVo getCartVoLimit(Integer userId){
         CartVo cartVo=new CartVo();
         List<Cart> cartList=cartMapper.selectCartByUserId(userId);

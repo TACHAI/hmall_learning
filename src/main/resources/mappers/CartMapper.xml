@@ -131,9 +131,23 @@
     DELETE FROM mmall_cart
     WHERE user_id=#{userId}
     <if test="productList != null">
+      and product_id in
       <foreach collection="productList" item="item" index="index" open="{" separator="," close="}">
         #{item}
       </foreach>
     </if>
   </delete>
+  <update id="checkOrUnchekedProduct" parameterType="Map">
+    UPDATE mmall_cart
+    set checked=#{checked}
+    update_time =now()
+    where user_id=#{userId}
+    <if test="productId !=null">
+      and product_id=#{productId}
+    </if>
+  </update>
+  <select id="selectCartProductCount" resultType="int" parameterType="int">
+  SELECT IFNULL(sum(quantity),0) as count  FROM mmall_cart
+  WHERE user_id=#{userId}
+</select>
 </mapper>
