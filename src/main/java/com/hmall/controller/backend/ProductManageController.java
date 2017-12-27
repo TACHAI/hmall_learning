@@ -135,7 +135,7 @@ public class ProductManageController {
             return ServiceResponse.createByErrorMessage("无权限操作，需要管理员权限");
         }
     }
-    //富文本上传
+    //富文本上传   是使用的simditor插件所以按照simditor的要求进行返回
     @RequestMapping("richtext_img_upload.do")
     @ResponseBody
     public Map richtextImgUpLoad(HttpSession session, @RequestParam(value ="upload_file",required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response){
@@ -147,7 +147,6 @@ public class ProductManageController {
             return resultMap;
         }
         //富文本中对自己的返回值有自己的要求
-
         if(iUserService.checkAdminRole(user).isSuccess()){
             //填充业务
             String path=request.getSession().getServletContext().getRealPath("upload");
@@ -161,6 +160,7 @@ public class ProductManageController {
             resultMap.put("success",true);
             resultMap.put("msg","上传成功");
             resultMap.put("file_path",url);
+            //前端要求
             response.addHeader("Access-Control-Allow-Headers","X-File-Name");
             return resultMap;
         }else {

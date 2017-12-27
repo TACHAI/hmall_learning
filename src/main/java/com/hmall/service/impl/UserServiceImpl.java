@@ -54,19 +54,19 @@ public class UserServiceImpl implements IUserService {
         return ServiceResponse.createBySuccess("注册成功");
     }
     public ServiceResponse<String> checkValid(String str,String type){
-        if(StringUtils.isNoneBlank()){
+        if(StringUtils.isNoneBlank(type)){
             if(Const.USERNAME.equals(type)){
                 int resultCount=userMapper.checkUsername(str);
                 if (resultCount>0){
                     return  ServiceResponse.createByErrorMessage("用户名已存在");
                 }
             }
-            if (Const.CURRENT_USER.equals(type)){
-               int resultCount=userMapper.checkEmail(type);
+            if (Const.EMAIL.equals(type)){
+               int resultCount=userMapper.checkEmail(str);
                 if(resultCount>0){
 
                     return ServiceResponse.createByErrorMessage("email已存在");
-                }
+                    }
             }
         }else {
             return ServiceResponse.createByErrorMessage("参数错误");

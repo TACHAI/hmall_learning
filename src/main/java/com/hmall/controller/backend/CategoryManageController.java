@@ -7,6 +7,7 @@ import com.hmall.service.ICategoryService;
 import com.hmall.service.IUserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @Email 1206966083@qq.com
  */
+@Controller
 @RequestMapping("/manage/category/")
 public class CategoryManageController {
     @Autowired
@@ -42,7 +44,7 @@ public class CategoryManageController {
             return ServiceResponse.createByErrorMessage("无权限操作，需要管理员权限");
         }
     }
-    @RequestMapping(value = "set_category_name.do",method = RequestMethod.GET)
+    @RequestMapping(value = "set_category_name.do")
     @ResponseBody
     public ServiceResponse setCategoryName(HttpSession session ,String categoryName,Integer categoryId){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
@@ -58,7 +60,7 @@ public class CategoryManageController {
         }
     }
     //获得平级
-    @RequestMapping(value = "get_category_name.do",method = RequestMethod.GET)
+    @RequestMapping(value = "get_category.do")
     @ResponseBody
     public ServiceResponse getChildrenParallelCategory(HttpSession session,@RequestParam(value ="categoryId",defaultValue = "0") Integer categoryId){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
@@ -75,7 +77,7 @@ public class CategoryManageController {
         }
     }
     //递归查询字节点的id
-    @RequestMapping(value = "get_deep_category_name.do",method = RequestMethod.GET)
+    @RequestMapping(value = "get_deep_category.do",method = RequestMethod.GET)
     @ResponseBody
     public ServiceResponse getCategoryAndDeepChildrenCategory(HttpSession session,@RequestParam(value ="categoryId",defaultValue = "0") Integer categoryId){
         User user= (User) session.getAttribute(Const.CURRENT_USER);

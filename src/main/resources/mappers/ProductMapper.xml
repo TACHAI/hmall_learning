@@ -182,7 +182,6 @@
   <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT <include refid="Base_Column_List"/>
     FROM mmall_product
---     WHERE 1==1
     <where>
     <if test="productName != null">
       AND name LIKE #{productName}
