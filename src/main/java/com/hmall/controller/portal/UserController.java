@@ -115,7 +115,7 @@ public class UserController {
     public ServiceResponse<User> get_information(HttpSession session){
         User currentuser = (User) session.getAttribute(Const.CURRENT_USER);
         if(currentuser==null){
-            return ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),"用户未登录status=10");
+            return ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录status=10");
         }
         return iUserService.getInformation(currentuser.getId());
     }

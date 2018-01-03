@@ -125,7 +125,7 @@
     WHERE user_id=#{userId}
   </select>
   <select id="selectCartProductCheckedStatusByUserId" resultType="int" parameterType="int">
-    SELECT COUNT (1) FROM mmall_cart WHERE  checked = 0 and user_id = #{userId}
+    SELECT COUNT(1) FROM mmall_cart WHERE  checked = 0 and user_id = #{userId}
   </select>
   <delete id="deleteByUserIdProductIds" parameterType="Map">
     DELETE FROM mmall_cart
@@ -150,4 +150,13 @@
   SELECT IFNULL(sum(quantity),0) as count  FROM mmall_cart
   WHERE user_id=#{userId}
 </select>
+
+  <select id="selectCheckedCartByUserId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_cart
+    where user_id = #{userId}
+    and checked = 1
+  </select>
+
 </mapper>

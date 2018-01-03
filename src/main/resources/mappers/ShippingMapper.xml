@@ -175,7 +175,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <delete id="deleteByShippingIdUserId" parameterType="Map" >
-    DELETE FROM mmal_shipping
+    DELETE FROM mmall_shipping
     WHERE id=#{shippingId}
     and user_id=#{userId}
   </delete>
@@ -198,14 +198,14 @@
   <select id="selectByShippingIdUserId" resultMap="BaseResultMap" parameterType="Map">
    SELECT
    <include refid="Base_Column_List"/>
-    FROM mmal_shipping
+    FROM mmall_shipping
     WHERE id=#{shippingId}
     and user_id=#{userId}
 
   </select>
   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="int">
     SELECT <include refid="Base_Column_List"/>
-    FROM mmal_shipping
+    FROM mmall_shipping
     WHERE user_id=#{userId}
   </select>
 </mapper>

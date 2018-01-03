@@ -32,7 +32,7 @@ public class ShippingController {
     public ServiceResponse add(HttpSession session, Shipping shipping){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),ResponseCode.NEED_LOGGIN.getDesc());
+            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingServiceimpl.add(user.getId(),shipping);
     }
@@ -42,7 +42,7 @@ public class ShippingController {
     public ServiceResponse del(HttpSession session, Integer shippingId){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),ResponseCode.NEED_LOGGIN.getDesc());
+            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingServiceimpl.del(user.getId(),shippingId);
     }
@@ -51,7 +51,7 @@ public class ShippingController {
     public ServiceResponse update(HttpSession session, Shipping shipping){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),ResponseCode.NEED_LOGGIN.getDesc());
+            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingServiceimpl.update(user.getId(),shipping);
     }
@@ -61,7 +61,7 @@ public class ShippingController {
     public ServiceResponse select(HttpSession session, Integer shippingId){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),ResponseCode.NEED_LOGGIN.getDesc());
+            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingServiceimpl.select(user.getId(),shippingId);
     }
@@ -70,7 +70,7 @@ public class ShippingController {
     HttpSession session ){
         User user= (User) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGGIN.getCode(),ResponseCode.NEED_LOGGIN.getDesc());
+            return  ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iShippingServiceimpl.list(user.getId(),pageNum,pageSize);
     }

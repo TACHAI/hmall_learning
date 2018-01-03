@@ -6,7 +6,7 @@ package com.hmall.common;
 public enum  ResponseCode {
     SUCCESS(0,"SUCCESS"),
     ERROR(1,"ERROR"),
-    NEED_LOGGIN(10,"NEED_LOGIN"),
+    NEED_LOGIN(10,"NEED_LOGIN"),
     ILLEGAL_ARGUMENT(2,"ILLEGAL_ARGUMENT"),;
 
     private final int code;
