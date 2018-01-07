@@ -1,10 +1,10 @@
 package com.hmall.service.impl;
 
 import com.alipay.api.AlipayResponse;
-import com.alipay.api.domain.ExtendParams;
-import com.alipay.api.domain.GoodsDetail;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.demo.trade.config.Configs;
+import com.alipay.demo.trade.model.ExtendParams;
+import com.alipay.demo.trade.model.GoodsDetail;
 import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
@@ -48,7 +48,7 @@ import java.util.*;
 public class OrderServiceImpl implements IOrderService {
 
 
-    private static  AlipayTradeService tradeService;
+    private static AlipayTradeService tradeService;
     static {
 
         /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
@@ -421,8 +421,7 @@ public class OrderServiceImpl implements IOrderService {
 
         List<OrderItem> orderItemList = orderItemMapper.getByOrderNoUserId(orderNo,userId);
         for(OrderItem orderItem : orderItemList){
-            GoodsDetail goods = GoodsDetail.newInstance(orderItem.getProductId().toString(), orderItem.getProductName(), BigDecimalUtil.mul(orderItem.getCurrentUnitPrice().doubleValue(),new Double(100).doubleValue()).longValue(),
-                    orderItem.getQuantity());
+            GoodsDetail goods = GoodsDetail.newInstance(orderItem.getProductId().toString(), orderItem.getProductName(), BigDecimalUtil.mul(orderItem.getCurrentUnitPrice().doubleValue(),new Double(100).doubleValue()).longValue(), orderItem.getQuantity());
             goodsDetailList.add(goods);
         }
 
