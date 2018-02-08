@@ -3,8 +3,6 @@ package com.hmall.util;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**

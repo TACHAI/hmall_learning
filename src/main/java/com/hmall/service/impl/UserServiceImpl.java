@@ -94,6 +94,7 @@ public class UserServiceImpl implements IUserService {
         }
         return ServiceResponse.createByErrorMessage("答案不正确");
     }
+    //只在重置密码的时候使用token token是在验证问题答案的时候生成
     public ServiceResponse<String> forgetRestPassword(String username,String passwordNew, String forgetToken){
         if(StringUtils.isBlank(forgetToken)){
             return ServiceResponse.createByErrorMessage("参数错误,token需要传递");

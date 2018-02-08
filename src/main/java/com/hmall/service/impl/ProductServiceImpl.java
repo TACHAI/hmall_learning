@@ -1,6 +1,5 @@
 package com.hmall.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -13,13 +12,11 @@ import com.hmall.pojo.Category;
 import com.hmall.pojo.Product;
 import com.hmall.service.ICategoryService;
 import com.hmall.service.IProductService;
-import com.hmall.util.DateTimeUtil;
 import com.hmall.util.PropertiesUtil;
 import com.hmall.vo.ProductDetailVo;
 import com.hmall.vo.ProductListVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -87,7 +84,7 @@ public class ProductServiceImpl implements IProductService {
         }
         //vo对象-value object
         ProductDetailVo productDetailVo=assembleProductDetailVo(product);
-        return ServiceResponse.createBySuccess(productDetailVo);
+        return ServiceResponse.createBySuccess((Object) productDetailVo);
         //pojo->bo->vo(view object)
     }
     private ProductDetailVo assembleProductDetailVo(Product product){
