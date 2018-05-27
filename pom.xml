@@ -218,11 +218,11 @@
       <version>2.9.0</version>
     </dependency>
     <!--&lt;!&ndash;注解的方式消除getset&ndash;&gt;-->
-    <!--<dependency>-->
-      <!--<groupId>org.projectlombok</groupId>-->
-      <!--<artifactId>lombok</artifactId>-->
-      <!--<version>1.16.18</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.18</version>
+    </dependency>
   </dependencies>
 
   <profiles>
