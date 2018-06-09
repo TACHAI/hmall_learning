@@ -9,7 +9,9 @@
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 <!--spring mvc 配置-->
     <!--扫描control类注解-->
-    <context:component-scan base-package="com.hmall" annotation-config="true"/>
+    <context:component-scan base-package="com.hmall" annotation-config="true" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
