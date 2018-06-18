@@ -1,6 +1,7 @@
 package com.hmall.common;
 
 import com.hmall.util.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.*;
 import redis.clients.util.Hashing;
 import redis.clients.util.Sharded;
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @Email 1206966083@qq.com
  */
+@Slf4j
 public class RedisShardedPool {
     private static ShardedJedisPool pool;//jedis连接池
     private static Integer maxTatal= Integer.parseInt(PropertiesUtil.getProperty("redis.max.total","20")) ; //最大连接数
