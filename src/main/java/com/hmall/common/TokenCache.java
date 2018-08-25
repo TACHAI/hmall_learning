@@ -1,9 +1,9 @@
 package com.hmall.common;
+
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import org.slf4j.LoggerFactory;
-import sun.rmi.server.LoaderHandler;
 
 import java.util.concurrent.TimeUnit;
 

@@ -54,7 +54,6 @@
             <mvc:exclude-mapping path="/manage/user/login.do"/>
             <bean class="com.hmall.common.intereceptor.AuthorityInterceptor"/>
         </mvc:interceptor>
-
     </mvc:interceptors>
 
 

@@ -1,16 +1,19 @@
 package com.hmall.task;
 
 import com.hmall.common.Const;
+import com.hmall.common.RedissonManager;
 import com.hmall.service.IOrderService;
 import com.hmall.util.PropertiesUtil;
 import com.hmall.util.RedisShardedPoolUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.PreDestroy;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by @Author tachai
@@ -23,6 +26,8 @@ import javax.annotation.PreDestroy;
 public class CloseOrderTask {
     @Autowired
     private IOrderService iOrderService;
+    @Autowired
+    private RedissonManager redissonManager;
 
 //
     @PreDestroy
@@ -55,7 +60,7 @@ public class CloseOrderTask {
 
 
 
-    @Scheduled(cron = "0 */1 * * * ?")//每一分钟的整数倍执行
+//    @Scheduled(cron = "0 */1 * * * ?")//每一分钟的整数倍执行
     public void cliseOrderTask3(){
         log.info("关闭订单定时任务启动");
         long lockTimeOut=Long.parseLong(PropertiesUtil.getProperty("lock.timeout","5000"));
@@ -83,6 +88,32 @@ public class CloseOrderTask {
             }
 
             log.info("关闭订单定时任务结束");
+        }
+    }
+
+    @Scheduled(cron = "0 */1 * * * ?")//每一分钟的整数倍执行
+    public void cliseOrderTask4(){
+        RLock lock = redissonManager.getRedisson().getLock(Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK);
+        boolean getLock = false;
+        //尝试获取锁
+        try {
+            if(getLock = lock.tryLock(0,5, TimeUnit.SECONDS)){
+                log.info("Redisson获取分布式锁:{},ThreadName:{}",Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK);
+                int hour = Integer.parseInt(PropertiesUtil.getProperty("close.order.task.time.hour"));
+                iOrderService.closeOrder(hour);
+            }else {
+                log.info("Redisson没有获取分布式锁:{},ThreadName:{}",Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK);
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            log.error("Redisson分布式锁获取异常",e);
+        }finally {
+            if(!getLock){
+                return;
+            }
+            lock.unlock();
+            log.info("Redission分布式锁释放锁");
         }
     }
 
